@@ -2,7 +2,7 @@
 
 ### common.grains
 
-    salt server* state.sls common.grains pillar='{"current-openstack-instance": "devcloud"}'
+    salt * state.sls common.grains pillar='{"current-openstack-instance": "devcloud"}'
 
 In this example ```devcloud``` is the value of ```openstack-instance``` and holds all the minions in that openstack instance. Below two minons are under ```devcloud```.
 
