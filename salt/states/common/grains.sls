@@ -1,4 +1,6 @@
 
+# usage:
+# salt * state.sls common.grains pillar='{"current-openstack-instance": "devcloud"}'
 #
 # 'current-openstack-instance' value should be passed and
 # needs to match a value of openstack-instance in minion pillar.
