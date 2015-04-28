@@ -1,0 +1,25 @@
+
+{% set mysql = salt['grains.filter_by']({
+   'RedHat': {
+        'conf_file': '/etc/my.cnf.d/cluster.cnf',
+        'root_user': 'root',
+        'root_password': 'mysql',
+        'allow_host': "\'%'", 
+        'conn_user': 'root',
+        'conn_password': 'mysql',
+        'privileges': 'ALL PRIVILEGES',
+        'conn_host': '172.25.204.94',
+
+    },
+    'Debian': {
+        'conf_file': '/etc/my.cnf.d/cluster.cnf',
+        'root_user': 'root',
+        'root_password': 'mysql',
+        'allow_host': "\'%'", 
+        'conn_user': 'root',
+        'conn_password': 'mysql',
+        'privileges': 'ALL PRIVILEGES',
+    },
+
+}, merge=salt['pillar.get']('openstack-instance:' + pillar['current-openstack-instance'] + ':openstack-components:mysql')) %} 
+

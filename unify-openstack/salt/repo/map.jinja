@@ -1,0 +1,9 @@
+{% if grains['os_family'] == 'RedHat' %}
+
+{% if grains['osmajorrelease'][0] == '7' %}
+  {% set pkg = {
+    'rpm': 'https://repos.fedorapeople.org/repos/openstack/openstack-juno/rdo-release-juno-1.noarch.rpm',
+  } %}
+{% endif %}
+{% endif %}
+
