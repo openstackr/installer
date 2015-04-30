@@ -1,0 +1,13 @@
+
+{% set neutron_controller = salt['grains.filter_by']({
+   'RedHat': {
+        'name': 'neutron',
+        'password': 'password',
+    },
+    'Debian': {
+        'name': 'neutron',
+        'password': 'password',
+    },
+
+}, merge=salt['pillar.get']('openstack-instance:' + pillar['current-openstack-instance'] + ':openstack-components:neutron')) %}
+
