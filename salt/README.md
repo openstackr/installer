@@ -1,1 +1,0 @@
-This is the folder where salt formulas and pillar data is placed.
