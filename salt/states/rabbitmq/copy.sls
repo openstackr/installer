@@ -8,4 +8,13 @@ rabbitmq_confgure:
     - source: salt://{{ master }}/var/lib/rabbitmq/.erlang.cookie
     {% endfor %}
     - makedirs: True
+
+rabbitmq_master_config:
+  file:
+    - append
+    - name: /etc/hosts
+    - text:
+      {%- for master,value in salt['mine.get']('G@rabbitmq-cluster-id:' + grains['rabbitmq-cluster-id'] + ' and G@role:' + grains['role'] + ' and G@rabbitmq-is-master:true','grains.items','compound').items() %}
+      - {{ value['ipv4'][1] }} {{ value['id'] }}
+      {% endfor %}
 {%- endif -%}

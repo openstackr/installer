@@ -6,5 +6,9 @@ rabbitmq_start:
       - salt-call service.start rabbitmq-server 
       - salt-call cp.push /var/lib/rabbitmq/.erlang.cookie
 
+rabbitmq_enable:
+  service.running:
+    - name: rabbitmq-server
+    - enable: True
 {% endif %}
 

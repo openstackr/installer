@@ -13,4 +13,10 @@ mysql_start:
 {%- else %}
     - name: service mysql start
 {%- endif %}
+
+mysql_enable:
+  service.running:
+    - name: mysql
+    - enable: True
+
 {% endif %}

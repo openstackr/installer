@@ -8,16 +8,17 @@ openstack-instance:
     minions:
       controller:
         function: controller
-        role: rabbitmq 
-        rabbitmq-cluster-id: rabbitmq-cluster1
-        rabbitmq-is-master: true
+        role: mysql
+        mysql-cluster-id: mysql-cluster1
+        mysql-is-master: true
 
 
       compute:
         function: compute
-        role: rabbitmq
-        rabbitmq-cluster-id: rabbitmq-cluster1
-        rabbitmq-is-master: false
+        role: mysql
+        mysql-cluster-id: mysql-cluster1
+        mysql-is-master: false
+
    
       network:
         function: network

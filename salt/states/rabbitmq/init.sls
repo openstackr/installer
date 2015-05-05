@@ -9,8 +9,8 @@ rabbitmq:
 
 rabbitmq_slave:
   salt.state:
-    - tgt: 'G@rabbitmq-is-master:False and G@role:rabbitmq'
-    - tgt_type: compound
+    - tgt: 'rabbitmq-is-master:False'
+    - tgt_type: grain
     - sls:
         - rabbitmq.configure
     - require:

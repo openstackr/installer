@@ -1,4 +1,4 @@
-{% if 'mysql-cluster-id' in grains %}
+{% if 'role' in grains and grains['role'] == 'mysql' and 'mysql-cluster-id' in grains %}
 
 {% from "mysql_server/files/map.jinja" import mysql with context %}
 
