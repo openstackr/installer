@@ -1,5 +1,4 @@
 base:
   '*':
     - mine
-    - global
-    - minions
+    - minion

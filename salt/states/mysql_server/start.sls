@@ -1,12 +1,9 @@
-{#include:
-  - mysql_server.install
-#}
-
+{% if 'role' in grains and grains['role'] == 'mysql' %}
 mysql_start:
   cmd:
     - run
-{%- if 'cluster-id' in grains -%}
-{%-   for key, value in salt ['mine.get']('G@cluster-id:' + grains['cluster-id'] + ' and G@role:mysql', 'grains.items','compound').items() -%}
+{%- if 'mysql-cluster-id' in grains -%}
+{%-   for key, value in salt ['mine.get']('G@mysql-cluster-id:' + grains['mysql-cluster-id'] + ' and G@role:mysql', 'grains.items','compound').items() -%}
 {%-     if value.id == grains['id'] and grains['mysql-is-master'] == True %}
     - name: service mysql start --wsrep-new-cluster
 {%-     elif  value.id == grains['id'] and grains['mysql-is-master'] == False %}
@@ -16,6 +13,10 @@ mysql_start:
 {%- else %}
     - name: service mysql start
 {%- endif %}
-{#    - require:
-      - pkg: mysql_install
-#}
+
+mysql_enable:
+  service.running:
+    - name: mysql
+    - enable: True
+
+{% endif %}
