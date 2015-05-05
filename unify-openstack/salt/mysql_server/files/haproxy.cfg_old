@@ -1,0 +1,30 @@
+global
+  chroot  /var/lib/haproxy
+  daemon
+  group  haproxy
+  maxconn  4000
+  pidfile  /var/run/haproxy.pid
+  user  haproxy
+
+defaults
+  log  global
+  maxconn  8000
+  option  redispatch
+  retries  3
+  timeout  http-request 10s
+  timeout  queue 1m
+  timeout  connect 10s
+  timeout  client 1m
+  timeout  server 1m
+  timeout  check 10s
+
+
+listen galera_cluster
+  bind {{ grains['host'] }}:3306
+  balance source
+  option  httpchk
+{% for key,value  in salt ['mine.get']('G@openstack-id:' + grains['openstack-id'] + ' and G@role:mysql','grains.items','compound').items() %}
+server MySQL{{ loop.index }} {{ value['ipv4'][1] }}:3306 check port 9200 inter 2000 rise 2 fall 5
+{%- endfor %}
+
+

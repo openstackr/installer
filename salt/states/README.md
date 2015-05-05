@@ -1,1 +1,0 @@
-All state files are under this folder.
