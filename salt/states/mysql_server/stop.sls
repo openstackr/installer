@@ -1,3 +1,4 @@
+{% if 'role' in grains and grains['role'] == 'mysql' %}
 mysql_stop:
   cmd:
     - run
@@ -8,3 +9,4 @@ mysql_stop:
     - name: echo "Mysql Server Instance is stopped"
       {%- endif -%}
     {%- endfor -%}
+{% endif %}

@@ -1,4 +1,3 @@
-
 # usage:
 # salt * state.sls common.grains pillar='{"current-openstack-instance": "devcloud"}'
 #
@@ -26,3 +25,4 @@ openstack-id:
     - value: {{ grain_value }}
 
 {% endfor %}
+

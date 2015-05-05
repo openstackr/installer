@@ -1,3 +1,5 @@
+{% if 'role' in grains and grains['role'] == 'mysql' %}
+
 include:
   - mysql_server.stop
 
@@ -5,7 +7,7 @@ include:
 mysql_restart:
   cmd:
     - run
-    {% if 'cluster-id' in grains -%}
+    {% if 'mysql-cluster-id' in grains -%}
     {%- for mysql_status in salt['cmd.run']('service mysql status').split() -%}
       {%- if mysql_status == 'SUCCESS!' and grains['mysql-is-master'] == True %}
     - name: service mysql start --wsrep-new-cluster
@@ -22,3 +24,5 @@ mysql_restart:
     {%- endif %}
     - require:
       - sls : mysql_server.stop
+
+{% endif %}
