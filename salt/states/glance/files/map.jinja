@@ -1,0 +1,13 @@
+{% set glance =  salt['grains.filter_by']({
+    'RedHat': {
+        'name': 'glance',
+        'password': 'glance',
+        'email': 'glance@test.com'
+    },
+    'Debian': {
+        'name': 'glance',
+        'password': 'glance',
+        'email': 'glance@test.com'
+    },
+}, merge=salt['pillar.get']('openstack-instance:' + pillar['current-openstack-instance'] + ':openstack-components:glance')) %}
+
