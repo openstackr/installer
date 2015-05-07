@@ -1,0 +1,15 @@
+{% set cinder_controller = salt['grains.filter_by']({
+   'RedHat': {
+        'name': 'keystone',
+        'password': 'password',
+    },
+    'Debian': {
+        'name': 'keystone',
+        'password': 'password',
+    },
+
+}, merge=salt['pillar.get']('openstack-instance:' + pillar['current-openstack-instance'] + ':openstack-components:cinder')) %}
+
+
+
+
