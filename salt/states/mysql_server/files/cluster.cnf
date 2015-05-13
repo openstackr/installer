@@ -1,0 +1,31 @@
+[mysqld]
+query_cache_size=0
+binlog_format=ROW
+default-storage-engine=innodb
+innodb_autoinc_lock_mode=2
+query_cache_type=0
+bind-address=0.0.0.0
+
+# Galera Provider Configuration
+wsrep_provider=/usr/lib64/galera/libgalera_smm.so
+#wsrep_provider_options="gcache.size=32G"
+
+# Galera Cluster Configuration
+wsrep_cluster_name="{{ salt['grains.get']('mysql-cluster-id', 'mysql-default-cluster') }}"
+
+{% set ip_addresses = [] %}
+{%- for key, value  in salt ['mine.get']('G@openstack-id:' + grains['openstack-id'] + ' and G@mysql-cluster-id:' + grains['mysql-cluster-id'] + ' and G@role:mysql', 'grains.items','compound').items() -%}
+{%    do ip_addresses.append(value['ipv4'][1]) %}
+{%- endfor -%}
+
+wsrep_cluster_address="gcomm://
+{{- ip_addresses|join(',') -}}
+"
+
+# Galera Synchronization Configuration
+wsrep_sst_method=rsync
+#wsrep_sst_auth=user:pass
+
+# Galera Node Configuration
+wsrep_node_address={{ salt['grains.get']('ipv4')[1] }}
+wsrep_node_name={{ salt['grains.get']('host') }}
