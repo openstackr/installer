@@ -1,0 +1,21 @@
+{% set ntp = salt['grains.filter_by']({
+    'Debian':{
+      'name': 'ntp',
+      'service': 'ntp',
+      'conf': '/etc/ntp.conf'
+      },
+    'RedHat':{
+      'name': 'ntp',
+      'service': 'ntpd',
+      'conf': '/etc/ntp.conf'
+}}, merge=salt['pillar.get']('ntp:lookup'), default='RedHat') %}
+
+{% set ntpdate = salt['grains.filter_by']({
+    'Debian':{
+      'name': 'ntpdate',
+      'conf': '/etc/ntp.conf'
+      },
+    'RedHat':{
+      'name': 'ntp',
+      'conf': '/etc/ntp.conf'
+}}, merge=salt['pillar.get']('ntp:lookup'), default='RedHat') %}
