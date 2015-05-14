@@ -1,0 +1,8 @@
+ntp_setup:
+  salt.state:
+    - tgt: 'id:controller'
+    - tgt_type: grain
+    - sls:
+        - ntp.install
+        - ntp.configure
+        - ntp.start
