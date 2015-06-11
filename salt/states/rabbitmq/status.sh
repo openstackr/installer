@@ -1,4 +1,4 @@
-##!/bin/bash
+#!/bin/bash
 
 rabbitmq_status=`salt-call service.status rabbitmq-server`
 status=`echo $rabbitmq_status | cut -d \: -f 2`
