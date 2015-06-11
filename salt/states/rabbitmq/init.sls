@@ -5,6 +5,8 @@ rabbitmq:
     - sls:
         - rabbitmq.install
         - rabbitmq.start
+        - rabbitmq.configure
+        - rabbitmq.restart
 
 
 rabbitmq_slave:
@@ -12,6 +14,6 @@ rabbitmq_slave:
     - tgt: 'rabbitmq-is-master:False'
     - tgt_type: grain
     - sls:
-        - rabbitmq.configure
+        - rabbitmq.slave
     - require:
       - salt: rabbitmq
